@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Password Manager</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>☟ -_-Password Manager-_- ☟</h1>
+  <form id="loginForm">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username"><br><br>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password"><br><br>
+    <label for="platform">Platform:</label>
+    <input type="text" id="platform" name="platform"><br><br>
+    <button type="button" onclick="saveLogin()">Save</button>
+  </form>
+
+  <h2>╔══════════════Saved_Logins══════════════╗</h2>
+  <ul id="savedLogins"></ul>
+
+  <script>
+        function saveLogin() {
+      var username = document.getElementById('username').value;
+      var password = document.getElementById('password').value;
+      var platform = document.getElementById('platform').value;
+
+      if (!username || !password || !platform) {
+        alert('Please fill in all fields');
+        return;
+      }
+
+      // Get existing logins or initialize an empty array
+      var logins = JSON.parse(localStorage.getItem('logins')) || [];
+
+      // Add new login
+      logins.push({ username: username, password: password, platform: platform });
+
+      // Save logins back to localStorage
+      localStorage.setItem('logins', JSON.stringify(logins));
+
+      // Clear form fields
+      document.getElementById('username').value = '';
+      document.getElementById('password').value = '';
+      document.getElementById('platform').value = '';
+
+      // Update saved logins list
+      updateSavedLogins();
+    }
+
+    function deleteLogin(index) {
+      var logins = JSON.parse(localStorage.getItem('logins')) || [];
+      
+      if (index >= 0 && index < logins.length) {
+        logins.splice(index, 1); // Remove the login at the specified index
+        localStorage.setItem('logins', JSON.stringify(logins)); // Save the updated logins
+      
+        // Update the displayed logins
+        updateSavedLogins();
+      } else {
+        alert('Invalid index');
+      }
+    }
+
+    function updateSavedLogins() {
+      var savedLogins = document.getElementById('savedLogins');
+      savedLogins.innerHTML = '';
+
+      // Get saved logins from localStorage
+      var logins = JSON.parse(localStorage.getItem('logins')) || [];
+
+      // Display each login in the list
+      logins.forEach(function(login, index) {
+        var listItem = document.createElement('li');
+        
+        // Create span for text content
+        var loginText = document.createElement('span');
+        loginText.textContent = `${login.platform}: ${login.username} / ${login.password}`;
+
+        // Create delete button
+        var deleteButton = document.createElement('button');
+        deleteButton.textContent = 'X';
+        deleteButton.className = 'deletebutton';
+        deleteButton.onclick = function() {
+          deleteLogin(index);
+        };
+
+        // Append login text and delete button to list item
+        listItem.appendChild(loginText);
+        listItem.appendChild(deleteButton);
+
+        savedLogins.appendChild(listItem);
+      });
+    }
+
+    // Initial update when the page loads
+    updateSavedLogins();
+  </script>
+</body>
+</html>

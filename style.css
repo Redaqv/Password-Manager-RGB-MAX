@@ -1,0 +1,61 @@
+body {
+    text-align: center;
+    background-color: rgb(31, 31, 31);
+    color: azure;
+}
+button {
+    width: 70%;
+    height: 40px;
+    animation: rgbGlow 5s ease-in-out infinite alternate;
+    margin: 5px;
+}
+button :hover {
+    color: grey;
+}
+.deletebutton {
+    height: 20px;
+    width: 20px;
+    box-shadow: red;
+    margin: 10px;
+}
+label {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 10px;
+}
+@keyframes rgbGlow1 {
+    0% { text-shadow: 0 0 10px rgb(255, 0, 0); }
+    50% { text-shadow: 0 0 20px rgb(0, 255, 0); }
+    100% { text-shadow: 0 0 10px rgb(0, 0, 255); }
+  }
+  @keyframes rgbGlow {
+    0% { box-shadow: 0 0 10px rgb(255, 0, 0); }
+    50% { box-shadow: 0 0 20px rgb(0, 255, 0); }
+    100% { box-shadow: 0 0 10px rgb(0, 0, 255); }
+  }
+  h1 {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 36px;
+    text-align: center;
+    padding: 20px;
+    animation: rgbGlow1 5s ease-in-out infinite alternate;
+  }
+
+  input[type="text"],
+  input[type="password"] {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    width: 340px;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+    animation: rgbGlow 3s ease-in-out infinite alternate;
+  }
+  
+  input[type="text"]:focus,
+  input[type="password"]:focus {
+    outline: none;
+    box-shadow: none;
+  }
+  
